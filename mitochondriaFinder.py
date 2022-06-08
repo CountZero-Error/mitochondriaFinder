@@ -1,4 +1,5 @@
 import os
+import time
 import argparse
 from LENGTH import *
 from FINDER import *
@@ -59,10 +60,10 @@ def write_to_local_file(contents):
 # main
 if __name__ == '__main__':
     parse = argparse.ArgumentParser()
+    parse.add_argument('-M', '--MODE', required=True, type=str, choices=['length', 'finder', 'search'])
     parse.add_argument('-I', '--INPUT_FOLDER_PATH', type=str)
     parse.add_argument('-O', '--OUTPUT_FILE_PATH', type=str)
     parse.add_argument('-Data', '--OLD_DATA_CSV_COLLECTIONS_PATH', type=str)
-    parse.add_argument('-M', '--MODE', required=True, type=str, choices=['length', 'finder', 'search'])
     parse.add_argument('-L', '--LENGTH', type=int, default=0)
     args =parse.parse_args()
 
@@ -81,16 +82,34 @@ if __name__ == '__main__':
     files = os.listdir(inputFolder)
 
     # length
-    # -I ../.. -O ../.. -M ../..
+    # -M length -I ../.. -O ../..
     if mode == 'length':
-        LENGTH.LENGTH(input_checking, clock, inputFolder, output, files, total_number)
+        start = time.time()
+
+        LENGTH.LENGTH(input_checking, inputFolder, output, files, total_number)
+
+        end = time.time()
+        TIME = clock(end - start)
+        print(f'\nTime spend: {TIME}s')
 
     # finder
-    # -I ../.. -O ../.. -M finder -Data ../.. -L 0
+    # -M finder -I ../.. -O ../.. -Data ../.. -L 0
     if mode == 'finder':
-        FINDER.FINDER(input_checking, database_checking, clock, inputFolder, output, database_path, limitation, files, total_number)
+        start = time.time()
+
+        FINDER.FINDER(input_checking, database_checking, inputFolder, output, database_path, limitation, files, total_number)
+        
+        end = time.time()
+        TIME = clock(end - start)
+        print(f'\nTime spend: {TIME}s')
 
     # search
     # -M search -Data ../..
     if mode == 'search':
-        SEARCH.SEARCH(database_checking, int_input_checking, write_to_local_file, clock, database_path)
+        start = time.time()
+
+        SEARCH.SEARCH(database_checking, int_input_checking, write_to_local_file, database_path)
+        
+        end = time.time()
+        TIME = clock(end - start)
+        print(f'\nTime spend: {TIME}s')

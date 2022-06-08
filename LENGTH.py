@@ -9,11 +9,10 @@ class LENGTH():
         pass
 
 #             | Method               | Variables
-    def LENGTH(self, input_checking, clock, inputFolder, output, files, total_number):
+    def LENGTH(self, input_checking, inputFolder, output, files, total_number):
         if input_checking(inputFolder) == False:
             sys.exit()
 
-        start = time.time()
         print('Mode: length')
         time.sleep(1)
         
@@ -75,7 +74,3 @@ class LENGTH():
         plt.savefig(os.path.join(os.path.dirname(output), 'mt-Length.png'))
             
         print('Done.')
-
-        end = time.time()
-        T = clock(end - start)
-        print(f'\nTime spend: {T}s')

@@ -7,11 +7,10 @@ class SEARCH():
         pass
 
 #             | Method                                                           | Variables
-    def SEARCH(self, database_checking, int_input_checking, write_to_local_file, clock, database_path):
+    def SEARCH(self, database_checking, int_input_checking, write_to_local_file, database_path):
         if database_checking(database_path) == False:
             sys.exit()
 
-        start = time.time()
         print('Mode: search')
         time.sleep(1)
 
@@ -38,7 +37,3 @@ class SEARCH():
             write_to_local_file(tmp)
         else:
             print('Not found.')
-
-        end = time.time()
-        T = clock(end - start)
-        print(f'\nTime spend: {T}s')
