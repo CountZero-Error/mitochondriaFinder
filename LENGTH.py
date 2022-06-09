@@ -8,7 +8,7 @@ class LENGTH():
     def __init__(self) -> None:
         pass
 
-#             | Method               | Variables
+    #               | Method        | Variables
     def LENGTH(self, input_checking, inputFolder, output, files, total_number):
         if input_checking(inputFolder) == False:
             sys.exit()

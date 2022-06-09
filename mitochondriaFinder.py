@@ -4,6 +4,7 @@ import argparse
 from LENGTH import *
 from FINDER import *
 from SEARCH import *
+from CLASSIFY import *
 
 # methods
 def clock(Time):
@@ -60,7 +61,7 @@ def write_to_local_file(contents):
 # main
 if __name__ == '__main__':
     parse = argparse.ArgumentParser()
-    parse.add_argument('-M', '--MODE', required=True, type=str, choices=['length', 'finder', 'search'])
+    parse.add_argument('-M', '--MODE', required=True, type=str, choices=['length', 'finder', 'search', 'classify'])
     parse.add_argument('-I', '--INPUT_FOLDER_PATH', type=str)
     parse.add_argument('-O', '--OUTPUT_FILE_PATH', type=str)
     parse.add_argument('-Data', '--OLD_DATA_CSV_COLLECTIONS_PATH', type=str)
@@ -76,13 +77,13 @@ if __name__ == '__main__':
     LENGTH = LENGTH()
     FINDER = FINDER()
     SEARCH = SEARCH()
+    CLASSIFY = CLASSIFY()
 
-    clock = 0
     total_number = 0
     files = os.listdir(inputFolder)
 
     # length
-    # -M length -I ../.. -O ../..
+    # -M length -I ../<folder> -O ../<file>
     if mode == 'length':
         start = time.time()
 
@@ -93,7 +94,7 @@ if __name__ == '__main__':
         print(f'\nTime spend: {TIME}s')
 
     # finder
-    # -M finder -I ../.. -O ../.. -Data ../.. -L 0
+    # -M finder -I ../<folder> -O ../<file> or <folder> -Data(no need if base on single file) ../<file> -L 0
     if mode == 'finder':
         start = time.time()
 
@@ -104,11 +105,22 @@ if __name__ == '__main__':
         print(f'\nTime spend: {TIME}s')
 
     # search
-    # -M search -Data ../..
+    # -M search -Data ../<file>
     if mode == 'search':
         start = time.time()
 
         SEARCH.SEARCH(database_checking, int_input_checking, write_to_local_file, database_path)
+        
+        end = time.time()
+        TIME = clock(end - start)
+        print(f'\nTime spend: {TIME}s')
+    
+    # classify
+    # -M classify -Data ../.. -O ../<folder>
+    if mode == 'classify':
+        start = time.time()
+
+        CLASSIFY.CLASSIFY(database_checking, database_path, output)
         
         end = time.time()
         TIME = clock(end - start)

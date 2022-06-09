@@ -6,7 +6,7 @@ class SEARCH():
     def __init__(self) -> None:
         pass
 
-#             | Method                                                           | Variables
+    #               | Method                                                    | Variables
     def SEARCH(self, database_checking, int_input_checking, write_to_local_file, database_path):
         if database_checking(database_path) == False:
             sys.exit()
