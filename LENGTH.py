@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 class LENGTH():
     def __init__(self) -> None:

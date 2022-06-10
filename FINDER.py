@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import pandas as pd
+from COMBINE import *
 
 class FINDER():
     def __init__(self) -> None:
@@ -132,10 +133,17 @@ class FINDER():
                 tmp_output = os.path.join(output, f'standard_{file}')
                 self.finder(P_list, tmp_output, limitation, total_number, database_path, csv_name, csv_len, csv_seq, answer)
             
+                while True:
+                    answer2 = input('Do you want to combine the standard result to one extra file?(Y/n):')
+                    if answer2.lower() == 'y' or answer2.lower() == 'n':
+                        break
+                
+                if answer2.lower() == 'y':
+                    COMBINE = COMBINE()
+                    COMBINE.COMBINE(output)
+                    
         if answer.lower() == 'm':
             print('Done.')
             time.sleep(1)
             
             self.finder(P_list, output, limitation, total_number, database_path, csv_name, csv_len, csv_seq, answer)
-        else:
-            sys.exit()
